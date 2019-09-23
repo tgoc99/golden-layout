@@ -47,36 +47,36 @@ export default class DragProxy extends EventEmitter {
         this._dragListener.on('drag', this._onDrag, this);
         this._dragListener.on('dragStop', this._onDrop, this);
 
-        this.element = $(_template);
-        if (originalParent && originalParent._side) {
-            this._sided = originalParent._sided;
-            this.element.addClass('lm_' + originalParent._side);
-            if (['right', 'bottom'].indexOf(originalParent._side) >= 0)
-                this.element.find('.lm_content').after(this.element.find('.lm_header'));
-        }
-        this.element.css({
-            left: x,
-            top: y
-        });
-        this.element.find('.lm_tab').attr('title', stripTags(this._contentItem.config.title));
-        this.element.find('.lm_title').html(this._contentItem.config.title);
-        this.childElementContainer = this.element.find('.lm_content');
-        this.childElementContainer.append(contentItem.element);
+        // this.element = $(_template);
+        // if (originalParent && originalParent._side) {
+        //     this._sided = originalParent._sided;
+        //     this.element.addClass('lm_' + originalParent._side);
+        //     if (['right', 'bottom'].indexOf(originalParent._side) >= 0)
+        //         this.element.find('.lm_content').after(this.element.find('.lm_header'));
+        // }
+        // this.element.css({
+        //     left: x,
+        //     top: y
+        // });
+        // this.element.find('.lm_tab').attr('title', stripTags(this._contentItem.config.title));
+        // this.element.find('.lm_title').html(this._contentItem.config.title);
+        // this.childElementContainer = this.element.find('.lm_content');
+        // this.childElementContainer.append(contentItem.element);
 
         this._undisplayTree();
         this._layoutManager._$calculateItemAreas();
         this._setDimensions();
 
-        $(document.body).append(this.element);
+        // $(document.body).append(this.element);
 
-        var offset = this._layoutManager.container.offset();
+        // var offset = this._layoutManager.container.offset();
 
-        this._minX = offset.left;
-        this._minY = offset.top;
-        this._maxX = this._layoutManager.container.width() + this._minX;
-        this._maxY = this._layoutManager.container.height() + this._minY;
-        this._width = this.element.width();
-        this._height = this.element.height();
+        // // this._minX = offset.left;
+        // // this._minY = offset.top;
+        // // this._maxX = this._layoutManager.container.width() + this._minX;
+        // // this._maxY = this._layoutManager.container.height() + this._minY;
+        // // this._width = this.element.width();
+        // // this._height = this.element.height();
 
         this._setDropPosition(x, y);
     }
@@ -98,12 +98,12 @@ export default class DragProxy extends EventEmitter {
         event = getTouchEvent(event)
 
         var x = event.pageX,
-            y = event.pageY,
-            isWithinContainer = x > this._minX && x < this._maxX && y > this._minY && y < this._maxY;
+            y = event.pageY;
+        //     isWithinContainer = x > this._minX && x < this._maxX && y > this._minY && y < this._maxY;
 
-        if (!isWithinContainer && this._layoutManager.config.settings.constrainDragToContainer === true) {
-            return;
-        }
+        // if (!isWithinContainer && this._layoutManager.config.settings.constrainDragToContainer === true) {
+        //     return;
+        // }
 
         this._setDropPosition(x, y);
     }
@@ -119,10 +119,10 @@ export default class DragProxy extends EventEmitter {
      * @returns {void}
      */
     _setDropPosition(x, y) {
-        this.element.css({
-            left: x,
-            top: y
-        });
+        // this.element.css({
+        //     left: x,
+        //     top: y
+        // });
         this._area = this._layoutManager._$getArea(x, y);
 
         if (this._area !== null) {
@@ -139,7 +139,8 @@ export default class DragProxy extends EventEmitter {
      *
      * @returns {void}
      */
-    _onDrop() {
+    _onDrop(e) {
+        console.log('ondrop', e)
         this._updateTree()
         this._layoutManager.dropTargetIndicator.hide();
 
@@ -173,7 +174,7 @@ export default class DragProxy extends EventEmitter {
             this._contentItem._$destroy();
         }
 
-        this.element.remove();
+        // this.element.remove();
 
         this._layoutManager.emit('itemDropped', this._contentItem);
     }
@@ -226,12 +227,12 @@ export default class DragProxy extends EventEmitter {
             width = dimensions.dragProxyWidth,
             height = dimensions.dragProxyHeight;
 
-        this.element.width(width);
-        this.element.height(height);
+        // this.element.width(width);
+        // this.element.height(height);
         width -= (this._sided ? dimensions.headerHeight : 0);
         height -= (!this._sided ? dimensions.headerHeight : 0);
-        this.childElementContainer.width(width);
-        this.childElementContainer.height(height);
+        // this.childElementContainer.width(width);
+        // this.childElementContainer.height(height);
         this._contentItem.element.width(width);
         this._contentItem.element.height(height);
         this._contentItem.callDownwards('_$show');
