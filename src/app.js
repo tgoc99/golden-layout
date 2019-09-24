@@ -67,11 +67,11 @@ window.addEventListener('load', () => {
         break
     }
 
-    window.myLayout = GoldenLayout ? new GoldenLayout( config ) : new window.GoldenLayout( config )
+    // window.myLayout = GoldenLayout ? new GoldenLayout( config ) : new window.GoldenLayout( config )
 
-    myLayout.registerComponent( 'html', function( container, state ) {} )
+    // myLayout.registerComponent( 'html', function( container, state ) {} )
 
-    myLayout.init()
+    // myLayout.init()
 
 
     function createMiniConfig(){

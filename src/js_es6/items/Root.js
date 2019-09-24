@@ -5,12 +5,13 @@ import RowOrColumn from '../items/RowOrColumn'
 
 export default class Root extends AbstractContentItem {
     constructor(layoutManager, config, containerElement) {
-      
         super(layoutManager, config, null);
 
         this.isRoot = true;
         this.type = 'root';
+
         this.element = $('<div class="lm_goldenlayout lm_item lm_root"></div>');
+
         this.childElementContainer = this.element;
         this._containerElement = containerElement;
         this._containerElement.append(this.element);

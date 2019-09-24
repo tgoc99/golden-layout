@@ -1,4 +1,4 @@
-import DragListener from '../utils/DragListener'
+import TabDragListener from '../utils/TabDragListener'
 import DragProxy from '../controls/DragProxy'
 import {
     fnBind,
@@ -39,7 +39,7 @@ export default class Tab {
             this._layoutManager.config.settings.reorderEnabled === true &&
             contentItem.config.reorderEnabled === true
         ) {
-            this._dragListener = new DragListener(this.element);
+            this._dragListener = new TabDragListener(this.element, 0, this.contentItem.config.componentState);
             this._dragListener.on('dragStart', this._onDragStart, this);
             this.contentItem.on('destroy', this._dragListener.destroy, this._dragListener);
         }
@@ -127,11 +127,13 @@ export default class Tab {
      * @returns {void}
      */
     _onDragStart(x, y) {
-        if (!this.header._canDestroy)
-            return null;
+        console.log('in on drag start', x, y);
+        // if (!this.header._canDestroy)
+        //     return null;
         if (this.contentItem.parent.isMaximised === true) {
             this.contentItem.parent.toggleMaximise();
         }
+        console.log('tab ci', this.contentItem);
         new DragProxy(
             x,
             y,
