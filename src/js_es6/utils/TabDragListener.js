@@ -106,7 +106,6 @@ export default class TabDragListener extends EventEmitter {
                     Math.abs(this._nX) > this._nDistance ||
                     Math.abs(this._nY) > this._nDistance
                 ) {
-                    console.log('uh oh restarting drag???');
                     clearTimeout(this._timeout);
                     this._startDrag(oEvent);
                 }
