@@ -58,7 +58,6 @@ export default class TabDragListener extends EventEmitter {
         // ADD DATA TO THE DRAGEVENT
         if(this.bvState) {
             let winIdentity = fin.Window.getCurrentSync().identity;
-            const identityString = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default([__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(this.bvState), winIdentity.uuid, winIdentity.name]);
 
             const identityString = JSON.stringify([JSON.stringify(this.bvState),winIdentity.uuid, winIdentity.name]);
 
