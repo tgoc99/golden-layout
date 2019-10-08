@@ -128,13 +128,14 @@ export default class Tab {
      */
     _onDragStart(x, y) {
         console.log('in on drag start', x, y);
-        if (!(this.header.tabs.length > 1)) {
-			return null;
+        const views = this._layoutManager.root.getComponentsByName('browserView');
+		const viewCount = views.length;
+        if (viewCount === 1) {
+            return null;
 		}
         if (this.contentItem.parent.isMaximised === true) {
             this.contentItem.parent.toggleMaximise();
         }
-        console.log('tab ci', this.contentItem);
         new DragProxy(
             x,
             y,
