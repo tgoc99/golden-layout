@@ -24,7 +24,7 @@ export default class TabDragListener extends EventEmitter {
         /**
          * The distance the mouse needs to be moved to qualify as a drag
          */
-        this._nDistance = 1; //TODO - works better with delay only
+        // this._nDistance = 1; //TODO - works better with delay only
 
         this._nX = 0;
         this._nY = 0;
@@ -76,15 +76,6 @@ export default class TabDragListener extends EventEmitter {
 
         this._nX = coordinates.x - this._nOriginalX;
         this._nY = coordinates.y - this._nOriginalY;
-
-        if (this._bDragging === false) {
-            if (
-                Math.abs(this._nX) > this._nDistance ||
-                Math.abs(this._nY) > this._nDistance
-            ) {
-                this._startDrag(oEvent);
-            }
-        }
 
         if (this._bDragging) {
             this.emit('drag', this._nX, this._nY, oEvent);
