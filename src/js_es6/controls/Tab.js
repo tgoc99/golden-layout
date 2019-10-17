@@ -132,6 +132,11 @@ export default class Tab {
 		const viewCount = views.length;
         if (viewCount === 1) {
             return null;
+        }
+        if(this.contentItem.parent.isStack && this.contentItem.parent.contentItems.length === 1) {
+			this.contentItem.parent._$getArea = () => {
+				return null;
+			};
 		}
         if (this.contentItem.parent.isMaximised === true) {
             this.contentItem.parent.toggleMaximise();
