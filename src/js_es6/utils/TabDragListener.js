@@ -63,6 +63,8 @@ export default class TabDragListener extends EventEmitter {
 
             oEvent.originalEvent.dataTransfer.effectAllowed = 'move';
             oEvent.originalEvent.dataTransfer.setData('Text', identityString);
+            // Encode the uuid as a type, so that it is accessable on dragover events in target window.
+            oEvent.originalEvent.dataTransfer.setData('uuid:' + winIdentity.uuid, true);
         }
         
         this._nOriginalX = coordinates.x;
