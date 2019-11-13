@@ -11,6 +11,8 @@ import AbstractContentItem from './items/AbstractContentItem'
 
 import BrowserPopout from './controls/BrowserPopout'
 import DragSource from './controls/DragSource'
+import DragProxy from './controls/DragProxy'
+
 import DropTargetIndicator from './controls/DropTargetIndicator'
 import TransitionIndicator from './controls/TransitionIndicator'
 
@@ -66,6 +68,7 @@ export default class LayoutManager extends EventEmitter {
         this._creationTimeoutPassed = false;
         this._subWindowsCreated = false;
         this._dragSources = [];
+        this._dragProxy = DragProxy;
         this._updatingColumnsResponsive = false;
         this._firstLoad = true;
 

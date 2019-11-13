@@ -6,11 +6,11 @@ import {
 
 
 export default class TabDragListener extends EventEmitter {
-    constructor(eElement, bvState) {
+    constructor(eElement, contentItem) {
 
         super();
 
-        this.bvState = bvState;
+		this.contentItem = contentItem;
 
         this._eElement = $(eElement);
         this._oDocument = $(document);
@@ -56,14 +56,15 @@ export default class TabDragListener extends EventEmitter {
     onMouseDown(oEvent) {
         const coordinates = this._getCoordinates(oEvent);
         // ADD DATA TO THE DRAGEVENT
-        if(this.bvState) {
-            let winIdentity = fin.Window.getCurrentSync().identity;
+        const winIdentity = fin.Window.getCurrentSync().identity;
 
-            const identityString = JSON.stringify([JSON.stringify(this.bvState),winIdentity.uuid, winIdentity.name]);
+        const identityString = JSON.stringify([JSON.stringify(this.contentItem.config.componentState), winIdentity.uuid, winIdentity.name]);
 
-            oEvent.originalEvent.dataTransfer.effectAllowed = 'move';
-            oEvent.originalEvent.dataTransfer.setData('Text', identityString);
-        }
+        oEvent.originalEvent.dataTransfer.effectAllowed = 'move';
+        oEvent.originalEvent.dataTransfer.setData('Text', identityString);
+
+        // Encode the uuid as a type, so that it is accessable on dragover events in target window.
+		oEvent.originalEvent.dataTransfer.setData('uuid:' + winIdentity.uuid + ':' + winIdentity.name, true);
         
         this._nOriginalX = coordinates.x;
         this._nOriginalY = coordinates.y;

@@ -39,7 +39,7 @@ export default class Tab {
             this._layoutManager.config.settings.reorderEnabled === true &&
             contentItem.config.reorderEnabled === true
         ) {
-            this._dragListener = new TabDragListener(this.element, this.contentItem.config.componentState);
+            this._dragListener = new TabDragListener(this.element, this.contentItem);
             this._dragListener.on('dragStart', this._onDragStart, this);
             this.contentItem.on('destroy', this._dragListener.destroy, this._dragListener);
         }
@@ -128,7 +128,7 @@ export default class Tab {
      */
     _onDragStart(x, y) {
         console.log('in on drag start', x, y);
-        const views = this._layoutManager.root.getComponentsByName('browserView');
+        const views = this._layoutManager.root.getComponentsByName('view');
 		const viewCount = views.length;
         if (viewCount === 1) {
             return null;
